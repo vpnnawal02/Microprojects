@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Magnetic Logo</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  .logo {
+    transition: transform 0.2s ease-out;
+    background-size: 200% 200%;
+    animation: gradientMove 6s ease infinite;
+  }
+  .trail-circle {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22d3ee;      /* cyan */
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition:
+    transform 0.3s ease-out,
+    opacity 0.5s ease-out;
+}
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+</head>
+
+<body class="bg-black min-h-screen flex items-center justify-center overflow-hidden">
+
+  <div id="container" class="w-full h-full flex items-center justify-center">
+    <div
+      id="logo"
+      class="logo text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text
+             bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500
+             drop-shadow-[0_0_30px_rgba(0,255,255,0.5)]
+             cursor-pointer select-none"
+    >
+      deploy_daily
+    </div>
+  </div>
+
+<script>
+  const logo = document.getElementById("logo");
+
+  function moveLogo(x, y) {
+    const rect = logo.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = (x - centerX) * 1;
+    const deltaY = (y - centerY) * 1;
+
+    logo.style.transform = `
+      translate(${deltaX}px, ${deltaY}px)
+      scale(1.05)
+    `;
+  }
+
+  function resetLogo() {
+    logo.style.transform = "translate(0,0) scale(1)";
+  }
+
+  // Desktop
+  window.addEventListener("mousemove", e => {
+    moveLogo(e.clientX, e.clientY);
+  });
+
+  // Mobile
+  window.addEventListener("touchmove", e => {
+    const t = e.touches[0];
+    moveLogo(t.clientX, t.clientY);
+  });
+
+  window.addEventListener("mouseleave", resetLogo);
+  window.addEventListener("touchend", resetLogo);
+  // How long before each circle disappears (ms)
+const LIFETIME = 500;
+
+document.addEventListener("mousemove", (e) => {
+  // Create a new circle element
+  const circle = document.createElement("div");
+  circle.classList.add("trail-circle");
+
+  // Position it at the mouse coordinates
+  circle.style.left = `${e.clientX}px`;
+  circle.style.top = `${e.clientY}px`;
+
+  // Optional slight scale for nicer feel
+  circle.style.transform = "translate(-50%, -50%) scale(1)";
+
+  // Add to the page
+  document.body.appendChild(circle);
+
+  // Trigger fade/scale after a tiny delay (to allow transition)
+  requestAnimationFrame(() => {
+    circle.style.opacity = "0";
+    circle.style.transform = "translate(-50%, -50%) scale(0.4)";
+  });
+
+  // Remove the element from DOM after it has faded out
+  setTimeout(() => {
+    circle.remove();
+  }, LIFETIME);
+});
+</script>
+
+</body>
+</html>
