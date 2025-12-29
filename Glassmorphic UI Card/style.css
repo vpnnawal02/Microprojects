@@ -1,0 +1,132 @@
+  /* ---------- BACKGROUND ---------- */
+  body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+          radial-gradient(circle at top left, #6366f1, transparent 40%),
+          radial-gradient(circle at bottom right, #ec4899, transparent 40%),
+          #020617;
+      transition: background 0.5s ease;
+  }
+
+  /* ---------- GLASS CARD ---------- */
+  .glass {
+      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .glass:hover {
+      transform: translateY(-10px);
+      box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  /* Glow aura */
+  .glass::before {
+      content: "";
+      position: absolute;
+      inset: -30px;
+      border-radius: inherit;
+      background: radial-gradient(circle,
+              rgba(99, 102, 241, 0.35),
+              transparent 70%);
+      filter: blur(40px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
+  }
+
+  .glass:hover::before {
+      opacity: 1;
+  }
+
+  /* ---------- AVATAR ---------- */
+  .ring {
+      background: linear-gradient(270deg, #6366f1, #ec4899, #6366f1);
+      background-size: 400% 400%;
+      animation: spin 6s ease infinite;
+  }
+
+  @keyframes spin {
+      0% {
+          background-position: 0% 50%;
+      }
+
+      50% {
+          background-position: 100% 50%;
+      }
+
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+
+  .avatar {
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .avatar:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+  }
+
+  /* ---------- BUTTON ---------- */
+  .btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      transition: all 0.25s ease;
+  }
+
+  .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.35);
+  }
+
+  .btn:active {
+      transform: scale(0.96);
+  }
+
+  /* Ripple */
+  .btn::after {
+      content: "";
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      top: 50%;
+      left: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      opacity: 0;
+  }
+
+  .btn:active::after {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      transition: transform 0.4s ease, opacity 0.6s ease;
+  }
+
+  /* ---------- LIGHT MODE (READY) ---------- */
+  .light body {
+      background:
+          radial-gradient(circle at top left, #c7d2fe, transparent 40%),
+          radial-gradient(circle at bottom right, #fbcfe8, transparent 40%),
+          #f8fafc;
+  }
+
+  .light .glass {
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: #0f172a;
+  }
+
+  .light .glass p {
+      color: rgba(15, 23, 42, 0.7);
+  }

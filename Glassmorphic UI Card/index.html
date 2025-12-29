@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Glass Profile Card</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+<!-- CARD -->
+<div class="glass w-[320px] rounded-3xl p-6 text-white text-center space-y-4">
+
+  <!-- Avatar -->
+  <div class="avatar mx-auto w-28 h-28 rounded-full ring p-1">
+    <div class="w-full h-full rounded-full bg-[#020617]
+                flex items-center justify-center text-3xl font-bold">
+      <img src="/imgs/me_github.png" alt="" class="rounded-full ">
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div>
+    <h2 class="text-xl font-semibold">deploy_daily</h2>
+    <p class="text-sm text-white/60">UI • Animations • Web</p>
+  </div>
+
+  <p class="text-sm text-white/70">
+    Building clean & interactive experiences.
+  </p>
+
+  <!-- Button -->
+  <button
+    id="followBtn"
+    class="btn w-full py-3 rounded-xl font-semibold"
+  >
+    Follow
+  </button>
+  <!-- Theme Toggle -->
+<button
+  id="themeToggle"
+  class="fixed top-0.5 right-4 z-50
+         w-10 h-10 rounded-full
+         bg-white/20 backdrop-blur
+         border border-white/30
+         text-white text-sm
+         hover:scale-105 transition"
+  aria-label="Toggle theme"
+>
+  🌙
+</button>
+</div>
+
+
+
+<script>
+  const btn = document.getElementById("followBtn");
+  let following = false;
+
+  btn.addEventListener("click", () => {
+    following = !following;
+
+    if (following) {
+      btn.textContent = "Following";
+      btn.style.background =
+        "linear-gradient(135deg, #22c55e, #16a34a)";
+      btn.style.boxShadow =
+        "0 12px 30px rgba(34,197,94,0.35)";
+    } else {
+      btn.textContent = "Follow";
+      btn.style.background =
+        "linear-gradient(135deg, #6366f1, #ec4899)";
+      btn.style.boxShadow =
+        "0 12px 30px rgba(236,72,153,0.35)";
+    }
+  });
+  const toggle = document.getElementById("themeToggle");
+  let lightMode = false;
+
+  toggle.addEventListener("click", () => {
+    lightMode = !lightMode;
+    document.documentElement.classList.toggle("light", lightMode);
+
+    toggle.textContent = lightMode ? "☀️" : "🌙";
+  });
+</script>
+
+</body>
+</html>
